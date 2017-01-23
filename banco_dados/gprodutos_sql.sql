@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `gprodutos`.`users` (
   `usuario` VARCHAR(45) NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(255) NOT NULL,
   `nivel_acesso` VARCHAR(45) NOT NULL COMMENT '1 - Usuário\n2 - Gestor\n3 - Administrador',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
