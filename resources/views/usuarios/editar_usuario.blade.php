@@ -1,16 +1,17 @@
 @extends('templates.menu-template')
 
 @section('content')
-	<h1 class="text-center">Cadastro de Usuário</h1>
+	<h1 class="text-center">Editar Usuário</h1>
 	<hr>
-	<form class="form-horizontal" role="form" method="POST" action="{{ url("usuarios/store") }}">
+	<form class="form-horizontal" role="form" method="POST" action="{{ url("usuarios/update/$usuario->id") }}">
         {{ csrf_field() }}
+        {{ method_field('PUT') }}
 
         <div class="form-group{{ $errors->has('matricula') ? ' has-error' : '' }}">
             <label for="matricula" class="col-md-4 control-label">Matrícula</label>
 
             <div class="col-md-6">
-                <input id="matricula" type="text" class="form-control" name="matricula" value="{{ old('matricula') }}" required autofocus>
+                <input id="matricula" type="text" class="form-control" name="matricula" value="{{ $usuario->matricula }}" required autofocus>
 
                 @if ($errors->has('matricula'))
                     <span class="help-block">
@@ -24,7 +25,7 @@
             <label for="usuario" class="col-md-4 control-label">Usuário</label>
 
             <div class="col-md-6">
-                <input id="usuario" type="text" class="form-control" name="usuario" value="{{ old('usuario') }}" required autofocus>
+                <input id="usuario" type="text" class="form-control" name="usuario" value="{{ $usuario->usuario }}" required autofocus>
 
                 @if ($errors->has('usuario'))
                     <span class="help-block">
@@ -38,7 +39,7 @@
             <label for="nome" class="col-md-4 control-label">Nome</label>
 
             <div class="col-md-6">
-                <input id="nome" type="text" class="form-control" name="nome" value="{{ old('nome') }}" required autofocus>
+                <input id="nome" type="text" class="form-control" name="nome" value="{{ $usuario->nome }}" required autofocus>
 
                 @if ($errors->has('nome'))
                     <span class="help-block">
@@ -52,7 +53,7 @@
             <label for="email" class="col-md-4 control-label">E-Mail</label>
 
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                <input id="email" type="email" class="form-control" name="email" value="{{ $usuario->email }}" required>
 
                 @if ($errors->has('email'))
                     <span class="help-block">
@@ -68,9 +69,9 @@
             <div class="col-md-6">
                 <select name="nivel_acesso" id="nivel_acesso" class="form-control" required>
                 	<option value="">Selecione</option>
-                    <option value="1">Usuário</option>
-                    <option value="2">Gestor</option>
-                    <option value="3">Administrador</option>
+                    <option value="1" @if($usuario->nivel_acesso == 1) selected @endif>Usuário</option>
+                    <option value="2" @if($usuario->nivel_acesso == 2) selected @endif>Gestor</option>
+                    <option value="3" @if($usuario->nivel_acesso == 3) selected @endif>Administrador</option>
                 </select>
 
                 @if ($errors->has('nivel_acesso'))
@@ -81,32 +82,10 @@
             </div>
         </div>
 
-        <div class="form-group{{ $errors->has('senha') ? ' has-error' : '' }}">
-            <label for="senha" class="col-md-4 control-label">Senha</label>
-
-            <div class="col-md-6">
-                <input id="senha" type="password" class="form-control" name="senha" required>
-
-                @if ($errors->has('senha'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('senha') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="senha-confirm" class="col-md-4 control-label">Confirmar Senha</label>
-
-            <div class="col-md-6">
-                <input id="senha-confirm" type="password" class="form-control" name="senha_confirmation" required>
-            </div>
-        </div>
-
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <button type="submit" class="btn btn-primary">
-                    Registrar
+                    Atualizar
                 </button>
             </div>
         </div>

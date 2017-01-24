@@ -1,7 +1,12 @@
-@extends('templates.login-template')
+@extends('templates.menu-template')
 
 @section('content')
-	<table class="table table-bordered table-striped">
+	<h1 class="text-center">Lista dos usuários</h1>
+	<div class="form-group">
+		<a class="btn btn-success" href="{{ url('usuarios/create') }}">Criar Usuário</a>
+	</div>
+	
+	<table class="table table-bordered table-striped table-hover">
 		<thead>
 			<th>Matrícula</th>
 			<th>Usuário</th>
@@ -19,11 +24,11 @@
 				<td>{{ $usuario->email }}</td>
 				<td>{{ $usuario->nivel_acesso }}</td>
 				<td>
-					<a href="{{ route("usuarios.show/$usuario->id") }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+					<a href="{{ url("usuarios/show/$usuario->id") }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
 					|
-					<a href="{{ route("usuarios.edit/$usuario->id") }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href="{{ url("usuarios/edit/$usuario->id") }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					|
-					<a href="{{ route("usuarios.delete/$usuario->id") }}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					<a href="{{ url("usuarios/destroy/$usuario->id") }}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 				</td>
 			</tr>
 			@empty
@@ -31,4 +36,5 @@
 			@endforelse
 		</tbody>		
 	</table>
+	{!! $usuarios->links() !!}
 @endsection

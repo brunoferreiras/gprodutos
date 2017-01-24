@@ -7,6 +7,14 @@ use App\User;
 
 class UsuariosController extends Controller
 {
+    private $user;
+    private $totalPage;
+
+    public function __construct(User $user){
+        $this->user = $user;
+        $this->totalPage = 5;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +22,10 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = User::get();
-        return view('usuarios.lista_usuarios', compact('usuarios'));
+        $usuarios =  $this->user->paginate($this->totalPage); // Retorna todos os dados dos usuários
+        $titulo = 'Usuários | Sistema de Gerenciamento de Produtos';
+
+        return view('usuarios.lista_usuarios', compact('usuarios', 'titulo'));
     }
 
     /**
@@ -25,7 +35,8 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        return view('usuarios.criar_usuarios');
+        $titulo = 'Criar Usuário | Sistema de Gerenciamento de Produtos';
+        return view('usuarios.criar_usuarios', compact('titulo'));
     }
 
     /**
@@ -45,16 +56,14 @@ class UsuariosController extends Controller
             'nivel_acesso' => 'required',
         ]);
 
-        // User::create([
-        //     'matricula' => $request->matricula,
-        //     'usuario' => $request->usuario,
-        //     'nome' => $request->nome,
-        //     'email' => $request->email,
-        //     'senha' => bcrypt($request->senha),
-        //     'nivel_acesso' => $request->nivel_acesso,
-        // ]);
-        User::create($request->all());
-        return redirect()->route('usuarios.index')->with('success', 'Usuário criado com sucesso!');
+        $cadastro = User::create($request->all());
+        if ( $cadastro ) {
+            return redirect()->action('UsuariosController@index', ['success' => 'Usuário cadastrado com sucesso!']);
+        }
+        else{
+            return redirect()->action('UsuariosController@index', ['error' => 'Não foi possível realizar o cadastro! Por favor, tente novamente.']);
+        }
+        
     }
 
     /**
@@ -65,7 +74,10 @@ class UsuariosController extends Controller
      */
     public function show($id)
     {
-        return 'mostrar usuarios';
+        $usuario = $this->user->find($id);
+        $titulo = "Usuário: ".$usuario->usuario." | Sistema de Gerenciamento de Produtos";
+
+        return view('usuarios.mostrar_usuario', compact('usuario', 'titulo'));
     }
 
     /**
@@ -76,7 +88,11 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        return 'editar usuarios';
+        $usuario = $this->user->find($id);
+        $matricula = $usuario->matricula;
+        $titulo = "Editar Usuário: ".$usuario->usuario." | Sistema de Gerenciamento de Produtos";
+
+        return view('usuarios.editar_usuario', compact('usuario', 'title'));
     }
 
     /**
@@ -88,7 +104,22 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 'atualizar usuarios';
+        $this->validate($request, [
+            'matricula' => 'required',
+            'usuario' => 'required',
+            'nome' => 'required',
+            'email' => 'required',
+            'nivel_acesso' => 'required',
+        ]);
+
+        $update = $this->user->find($id)->update($request->all());
+
+        if($update){
+            return redirect()->action('UsuariosController@index')->with('success', 'Usuário atualizado com sucesso!');
+        }
+        else{
+            return redirect()->action('UsuariosController@index')->with('error', 'Não foi possível atualizar o usuário! Por favor, tente novamente!');
+        }
     }
 
     /**
@@ -99,6 +130,13 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        return 'deletar usuario';
+        $delete = $this->user->find($id)->delete();
+
+        if($delete){
+            return redirect()->action('UsuariosController@index')->with('success', 'Usuário excluído com sucesso!');
+        }
+        else{
+            return redirect()->action('UsuariosController@index')->with('error', 'Não foi possível excluir o usuário! Por favor, tente novamente!');
+        }
     }
 }

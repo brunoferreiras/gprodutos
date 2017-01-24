@@ -17,12 +17,12 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'usuarios'], function(){
 	Route::get('/', 'UsuariosController@index');
-	Route::get('/create', 'UsuariosController@create');
-	Route::post('/store', 'UsuariosController@store');
-	Route::get('/show', 'UsuariosController@show');
-	Route::get('/edit', 'UsuariosController@edit');
-	Route::post('/update', 'UsuariosController@update');
-	Route::get('/delete', 'UsuariosController@delete');
+	Route::get('create', 'UsuariosController@create');
+	Route::post('store', 'UsuariosController@store');
+	Route::get('show/{id}', 'UsuariosController@show');
+	Route::get('edit/{id}', 'UsuariosController@edit');
+	Route::put('update/{id}', 'UsuariosController@update');
+	Route::get('destroy/{id}', 'UsuariosController@destroy');
 });
 
 Route::resource('produtos', 'ProdutosController');

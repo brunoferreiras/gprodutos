@@ -1,4 +1,4 @@
-@extends('templates.login-template')
+@extends('templates.menu-template')
 
 @section('content')
 	
