@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Produto;
 
 class ProdutosController extends Controller
-{   
+{
     private $produto;
+    private $totalPage;
 
-    public function __contruct(Produto $produto){
+    public function __construct(Produto $produto){
         $this->produto = $produto;
+        $this->totalPage = 10;
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +21,10 @@ class ProdutosController extends Controller
      */
     public function index()
     {
-        return 'página index';
+        $produtos = $this->produto->paginate($this->totalPage);
+        $titulo = 'Produtos | Sistema de Gerenciamento de Produtos';
+
+        return view('produtos.lista_produtos', compact('produtos', 'titulo'));
     }
 
     /**
@@ -29,7 +34,9 @@ class ProdutosController extends Controller
      */
     public function create()
     {
-        //
+        $titulo = 'Criar Produto | Sistema de Gerenciamento de Produtos';
+
+        return view('produtos.criar_produtos', compact('titulo'));
     }
 
     /**
@@ -40,7 +47,31 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'tag_rfid' => 'required',
+            'cod_barras' => 'required',
+            'produto' => 'required',
+            'descricao' => 'required',
+            'quantidade' => 'required',
+        ]);
+
+        $dados = [
+            'tag_rfid' => $request->tag_rfid,
+            'cod_barras' => $request->cod_barras,
+            'produto' => $request->produto,
+            'descricao' => $request->descricao,
+            'quantidade' => $request->quantidade,
+            'users_id' => 1,
+        ];
+
+        $criado = $this->produto->create($dados);
+
+        if($criado){
+            return redirect()->route('produtos.index')->with('success', 'Produto cadastrado com sucesso!');
+        }
+        else{
+            return redirect()->route('produtos.index')->with('error', 'Não foi possível cadastrar o produto! Por favor, tente novamente!');
+        }
     }
 
     /**
@@ -51,7 +82,10 @@ class ProdutosController extends Controller
      */
     public function show($id)
     {
-        //
+        $produto = $this->produto->find($id);
+        $titulo = "Produto: ".$produto->produto." | Sistema de Gerenciamento de Produtos";
+
+        return view('produtos.mostra_produto');
     }
 
     /**
@@ -62,7 +96,10 @@ class ProdutosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = $this->produto->find($id);
+        $titulo = "Editar Produto: ".$produto->produto." | Sistema de Gerenciamento de Produtos";
+
+        return view('produtos.editar_produto', compact('produto', 'title'));
     }
 
     /**
@@ -74,7 +111,22 @@ class ProdutosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'tag_rfid' => 'required',
+            'cod_barras' => 'required',
+            'produto' => 'required',
+            'descricao' => 'required',
+            'quantidade' => 'required',
+        ]);
+
+        $update = $this->produto->find($id)->update($request->all());
+
+        if($update){
+            return redirect()->route('produtos.index')->with('success', 'Produto editado com sucesso!');
+        }
+        else{
+            return redirect()->route('produtos.index')->with('error', 'Não foi possível editar o produto! Por favor, tente novamente!');
+        }
     }
 
     /**
@@ -85,6 +137,13 @@ class ProdutosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = $this->produto->find($id)->delete();
+
+        if($delete){
+            return redirect()->route('produtos.destroy')->with('success', 'Produto editado com sucesso!');
+        }
+        else{
+            return redirect()->route('<produtos class="destroy"></produtos>')->with('error', 'Não foi possível editar o produto! Por favor, tente novamente!');
+        }
     }
 }

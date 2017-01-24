@@ -56,7 +56,16 @@ class UsuariosController extends Controller
             'nivel_acesso' => 'required',
         ]);
 
-        $cadastro = User::create($request->all());
+        $dados = [
+            'matricula' => $request->matricula,
+            'usuario' => $request->usuario,
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'senha' => bcrypt($request->senha),
+            'nivel_acesso' => $request->nivel_acesso,
+        ];
+
+        $cadastro = User::create($dados);
         if ( $cadastro ) {
             return redirect()->action('UsuariosController@index', ['success' => 'Usuário cadastrado com sucesso!']);
         }

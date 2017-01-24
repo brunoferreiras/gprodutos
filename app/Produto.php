@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-    //
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'tag_rfid', 'cod_barras','produto', 'descricao', 'quantidade', 'users_id', 'updated_at', 'created_at',
+    ];
 }
