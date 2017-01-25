@@ -51,8 +51,7 @@
 			<label for="descricao" class="col-md-4 control-label">Descrição</label>
 
 			<div class="col-md-6">
-				<textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" required autofocus>
-					{{ old('descricao') }}
+				<textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" required autofocus>{{ old('descricao') }}
 				</textarea>
 				@if ( $errors->has('descricao') )
 					<span class="help-block">

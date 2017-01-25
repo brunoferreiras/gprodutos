@@ -14,7 +14,7 @@
 			<th>Descrição</th>
 			<th>Quantidade</th>
 			<th>Quem Cadastrou</th>
-			<th>Ações</th>
+			<th style="width: 150px;">Ações</th>
 		</thead>
 		<tbody>
 			@forelse($produtos as $produto)
@@ -26,11 +26,13 @@
 				<td>{{ $produto->quantidade }}</td>
 				<td>{{ $produto->users_id }}</td>
 				<td>
-					<a href="{{ route("produtos.show", ["id" => $produto->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-					|
-					<a href="{{ route("produtos.edit", ["id" => $produto->id]) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-					|
-					<a href="{{ route("produtos.destroy", ["id" => $produto->id]) }}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+					<a class="btn btn-info btn-sm" href="{{ route("produtos.show", ["id" => $produto->id]) }}"><i class="fa fa-eye fa-lg" aria-hidden="true"></i></a>
+					<a class="btn btn-primary btn-sm" href="{{ route("produtos.edit", ["id" => $produto->id]) }}"><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+					<form id="form_del" style="display: inline;" method="POST" action="{{ route("produtos.destroy", ["id" => $produto->id]) }}">
+						{{ method_field("DELETE") }}
+						{{ csrf_field() }}
+						<button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>
+					</form>
 				</td>
 			</tr>
 			@empty

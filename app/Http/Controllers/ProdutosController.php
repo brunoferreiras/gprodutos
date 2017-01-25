@@ -85,7 +85,7 @@ class ProdutosController extends Controller
         $produto = $this->produto->find($id);
         $titulo = "Produto: ".$produto->produto." | Sistema de Gerenciamento de Produtos";
 
-        return view('produtos.mostra_produto');
+        return view('produtos.mostra_produto', compact('produto', 'titulo'));
     }
 
     /**
@@ -140,10 +140,10 @@ class ProdutosController extends Controller
         $delete = $this->produto->find($id)->delete();
 
         if($delete){
-            return redirect()->route('produtos.destroy')->with('success', 'Produto editado com sucesso!');
+            return redirect()->route('produtos.index')->with('success', 'Produto excluído com sucesso!');
         }
         else{
-            return redirect()->route('<produtos class="destroy"></produtos>')->with('error', 'Não foi possível editar o produto! Por favor, tente novamente!');
+            return redirect()->route('produtos.index')->with('error', 'Não foi possível excluir o produto! Por favor, tente novamente!');
         }
     }
 }

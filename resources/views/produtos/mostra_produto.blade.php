@@ -14,6 +14,13 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Produto:</strong>
+                {{ $produto->produto }}
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Código de Barras:</strong>
                 {{ $produto->cod_barras }}
             </div>
