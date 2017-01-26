@@ -1,4 +1,4 @@
-@extends('templates.menu-template')
+@extends('layouts.app')
 
 @section('content')
 	<h1 class="text-center">Lista dos produtos</h1>

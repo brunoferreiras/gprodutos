@@ -1,9 +1,9 @@
-@extends('templates.menu-template')
+@extends('layouts.app')
 
 @section('content')
 	<h1 class="text-center">Lista dos usuários</h1>
 	<div class="form-group">
-		<a class="btn btn-success" href="{{ url('usuarios/create') }}">Criar Usuário</a>
+		<a class="btn btn-success" href="{{ url('usuarios/create') }}">Cadastrar Usuário</a>
 	</div>
 	
 	<table class="table table-bordered table-striped table-hover">

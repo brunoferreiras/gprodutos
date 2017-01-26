@@ -1,4 +1,4 @@
-@extends('templates.menu-template')
+@extends('layouts.app')
 
 @section('content')
 	<h1 class="text-center">Editar Usuário</h1>
@@ -84,6 +84,7 @@
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
+                <a class="btn btn-default" href="{{ url('usuarios') }}">Voltar</a>
                 <button type="submit" class="btn btn-primary">
                     Atualizar
                 </button>

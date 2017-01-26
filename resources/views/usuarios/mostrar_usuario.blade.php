@@ -1,4 +1,4 @@
-@extends('templates.menu-template')
+@extends('layouts.app')
 
 @section('content')
 	<h1 class="text-center">Usuário: {{ $usuario->nome }}</h1>
@@ -47,7 +47,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <a class="btn btn-primary" href="{{ url('usuarios') }}">Voltar</a>
+                <a class="btn btn-default" href="{{ url('usuarios') }}">Voltar</a>
             </div>
         </div>
     </div>    

@@ -1,4 +1,4 @@
-@extends('templates.menu-template')
+@extends('layouts.app')
 
 @section('content')
 	<h1 class="text-center">Produto: {{ $produto->produto }}</h1>
@@ -48,7 +48,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <a class="btn btn-primary" href="{{ route('produtos.index') }}">Voltar</a>
+                <a class="btn btn-default" href="{{ route('produtos.index') }}">Voltar</a>
             </div>
         </div>
     </div>    

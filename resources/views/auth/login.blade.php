@@ -51,11 +51,11 @@
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Login
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Entrar
                                 </button>
 
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    Recuperar password?
+                                    Recuperar Senha?
                                 </a>
                             </div>
                         </div>
