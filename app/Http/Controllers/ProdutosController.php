@@ -13,6 +13,7 @@ class ProdutosController extends Controller
     public function __construct(Produto $produto){
         $this->produto = $produto;
         $this->totalPage = 10;
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.

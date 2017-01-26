@@ -13,6 +13,7 @@ class UsuariosController extends Controller
     public function __construct(User $user){
         $this->user = $user;
         $this->totalPage = 5;
+        $this->middleware('auth');
     }
 
     /**
@@ -48,11 +49,11 @@ class UsuariosController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'matricula' => 'required',
-            'usuario' => 'required',
-            'nome' => 'required',
-            'email' => 'required',
-            'senha' => 'required',
+            'matricula' => 'required|max:255',
+            'usuario' => 'required|max:255',
+            'nome' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'senha' => 'required|min:6|confirmed',
             'nivel_acesso' => 'required',
         ]);
 
@@ -114,10 +115,11 @@ class UsuariosController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'matricula' => 'required',
-            'usuario' => 'required',
-            'nome' => 'required',
-            'email' => 'required',
+            'matricula' => 'required|max:255',
+            'usuario' => 'required|max:255',
+            'nome' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'senha' => 'required|min:6|confirmed',
             'nivel_acesso' => 'required',
         ]);
 

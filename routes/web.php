@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
-
 Route::group(['prefix' => 'usuarios'], function(){
 	Route::get('/', 'UsuariosController@index');
 	Route::get('create', 'UsuariosController@create');
@@ -26,3 +22,11 @@ Route::group(['prefix' => 'usuarios'], function(){
 });
 
 Route::resource('produtos', 'ProdutosController');
+
+Auth::routes();
+
+Route::post('/authenticate', 'LoginController@authenticate');
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('/', 'HomeController@index');
