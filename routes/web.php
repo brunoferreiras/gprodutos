@@ -25,8 +25,11 @@ Route::resource('produtos', 'ProdutosController');
 
 Auth::routes();
 
-Route::post('/authenticate', 'LoginController@authenticate');
-
 Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'HomeController@index');
+
+Route::get('/emprestimo', 'TransacoesController@create_saida');
+Route::get('/devolucao', 'TransacoesController@create_entrada');
+Route::post('/emprestimo', 'TransacoesController@store_saida');
+Route::post('/devolucao', 'TransacoesController@store_entrada');

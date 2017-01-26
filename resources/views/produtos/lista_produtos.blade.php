@@ -36,7 +36,9 @@
 				</td>
 			</tr>
 			@empty
-				<tr>Nenhum dado encontrado!</tr>
+				<tr>
+					<td class="text-center" colspan="7">Nenhum produto encontrado!</td>
+				</tr>
 			@endforelse
 		</tbody>		
 	</table>

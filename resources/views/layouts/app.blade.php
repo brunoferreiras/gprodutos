@@ -8,7 +8,11 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $titulo or config('app.name', 'Laravel') }}</title>
+
+        <!--Favicons-->
+        <link rel="shortcut icon" href="{{ url('assets/imgs/favicon.png') }}" type="image/x-icon" />
+
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ url('assets/css/bootstrap/css/bootstrap.min.css') }}">
@@ -83,8 +87,8 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuários <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ url("usuarios") }}">Lista</a>
-                                            <a href="{{ url("/usuarios/create") }}">Cadastro</a>
+                                            <a href="{{ url("usuarios") }}">Listar</a>
+                                            <a href="{{ url("/usuarios/create") }}">Cadastrar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -92,8 +96,8 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Produtos <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ url("produtos") }}">Lista</a>
-                                            <a href="{{ url("produtos/create") }}">Cadastro</a>
+                                            <a href="{{ url("produtos") }}">Listar</a>
+                                            <a href="{{ url("produtos/create") }}">Cadastrar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -101,8 +105,8 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Transações <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="">Empréstimos</a>
-                                            <a href="">Devoluções</a>
+                                            <a href="{{ url("emprestimo") }}">Empréstimos</a>
+                                            <a href="{{ url("devolucao") }}">Devoluções</a>
                                         </li>
                                     </ul>
                                 </li>

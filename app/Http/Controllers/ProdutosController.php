@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produto;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutosController extends Controller
 {
@@ -48,9 +49,10 @@ class ProdutosController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
-            'tag_rfid' => 'required',
-            'cod_barras' => 'required',
+            'tag_rfid' => 'required|unique:produtos',
+            'cod_barras' => 'required|unique:produtos',
             'produto' => 'required',
             'descricao' => 'required',
             'quantidade' => 'required',
@@ -62,7 +64,7 @@ class ProdutosController extends Controller
             'produto' => $request->produto,
             'descricao' => $request->descricao,
             'quantidade' => $request->quantidade,
-            'users_id' => 1,
+            'users_id' => Auth::id(),
         ];
 
         $criado = $this->produto->create($dados);

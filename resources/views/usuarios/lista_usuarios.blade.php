@@ -30,7 +30,9 @@
 				</td>
 			</tr>
 			@empty
-				<tr>Nenhum dado encontrado!</tr>
+				<tr>
+					<td class="text-center" colspan="6">Nenhum usuário encontrado!</td>
+				</tr>
 			@endforelse
 		</tbody>		
 	</table>

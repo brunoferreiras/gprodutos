@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-	<h1 class="text-center">Cadastro de Produto</h1>
+	<h1 class="text-center">Registrar Empréstimo</h1>
 	<hr>
-	<form class="form-horizontal" role="form" method="POST" action="{{ route('produtos.store') }}">
+	<form class="form-horizontal" role="form" method="POST" action="{{ url('emprestimo') }}">
 		{{ csrf_field() }}
 
 		<div class="form-group {{ $errors->has('tag_rfid') ? ' has-error' : ''}}">
@@ -47,19 +47,6 @@
 			</div>			
 		</div>
 
-		<div class="form-group {{ $errors->has('descricao') ? ' has-error' : ''}}">
-			<label for="descricao" class="col-md-4 control-label">Descrição</label>
-
-			<div class="col-md-6">
-				<textarea class="form-control" name="descricao" id="descricao" cols="30" rows="5" required autofocus>{{ old('descricao') }}</textarea>
-				@if ( $errors->has('descricao') )
-					<span class="help-block">
-						<strong>{{ $errors->first('descricao') }}</strong>
-					</span>
-				@endif
-			</div>			
-		</div>
-
 		<div class="form-group {{ $errors->has('quantidade') ? ' has-error' : ''}}">
 			<label for="quantidade" class="col-md-4 control-label">Quantidade</label>
 
@@ -78,7 +65,7 @@
             <div class="col-md-6 col-md-offset-4">
             	<a class="btn btn-default" href="{{ route('produtos.index') }}">Voltar</a>
                 <button type="submit" class="btn btn-primary">
-                    Cadastrar
+                    Registrar Empréstimo
                 </button>
             </div>
         </div>
