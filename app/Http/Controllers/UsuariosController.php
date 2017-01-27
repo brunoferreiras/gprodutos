@@ -53,7 +53,7 @@ class UsuariosController extends Controller
             'usuario' => 'required|max:255',
             'nome' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'senha' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed',
             'nivel_acesso' => 'required',
         ]);
 
@@ -62,16 +62,16 @@ class UsuariosController extends Controller
             'usuario' => $request->usuario,
             'nome' => $request->nome,
             'email' => $request->email,
-            'senha' => bcrypt($request->senha),
+            'password' => bcrypt($request->password),
             'nivel_acesso' => $request->nivel_acesso,
         ];
 
         $cadastro = User::create($dados);
         if ( $cadastro ) {
-            return redirect()->action('UsuariosController@index', ['success' => 'Usuário cadastrado com sucesso!']);
+            return redirect()->action('UsuariosController@index')->with('success', 'Usuário cadastrado com sucesso!');
         }
         else{
-            return redirect()->action('UsuariosController@index', ['error' => 'Não foi possível realizar o cadastro! Por favor, tente novamente.']);
+            return redirect()->action('UsuariosController@index')->with('error', 'Não foi possível registrar o usuário! Por favor, tente novamente!');
         }
         
     }
@@ -119,7 +119,7 @@ class UsuariosController extends Controller
             'usuario' => 'required|max:255',
             'nome' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'senha' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|confirmed',
             'nivel_acesso' => 'required',
         ]);
 

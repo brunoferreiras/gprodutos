@@ -114,7 +114,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="">Saque</a>
+                                            <a href="{{ url("relatorio_saques") }}">Saque</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -133,6 +133,9 @@
         <script src="{{ url('assets/css/bootstrap/js/bootstrap.min.js') }}"></script>
         <script src="{{ url('assets/js/pnotify.custom.min.js') }}"></script>
         <script src="{{ url('assets/js/custom.js') }}"></script>
+
+        @yield('scripts')
+
         {{-- PNotify --}}
         @if( session()->has('success') )
         <script>

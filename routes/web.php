@@ -33,3 +33,5 @@ Route::get('/emprestimo', 'TransacoesController@create_saida');
 Route::get('/devolucao', 'TransacoesController@create_entrada');
 Route::post('/emprestimo', 'TransacoesController@store_saida');
 Route::post('/devolucao', 'TransacoesController@store_entrada');
+
+Route::get('/relatorio_saques', 'RelatoriosController@index');

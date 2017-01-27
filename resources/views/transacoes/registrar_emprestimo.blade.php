@@ -6,7 +6,21 @@
 	<form class="form-horizontal" role="form" method="POST" action="{{ url('emprestimo') }}">
 		{{ csrf_field() }}
 
-		<div class="form-group {{ $errors->has('tag_rfid') ? ' has-error' : ''}}">
+		<div class="form-group {{ $errors->has('responsavel') ? ' has-error' : ''}}">
+			<label for="responsavel" class="col-md-4 control-label">Responsável pela retirada</label>
+
+			<div class="col-md-6">
+				<input type="text" id="responsavel" class="form-control" name="responsavel" value="{{ Auth::user()->nome }}" disabled required autofocus>
+
+				@if ( $errors->has('responsavel') )
+					<span class="help-block">
+						<strong>{{ $errors->first('responsavel') }}</strong>
+					</span>
+				@endif
+			</div>			
+		</div>
+
+		{{-- <div class="form-group {{ $errors->has('tag_rfid') ? ' has-error' : ''}}">
 			<label for="tag_rfid" class="col-md-4 control-label">Tag RFID</label>
 
 			<div class="col-md-6">
@@ -31,13 +45,20 @@
 					<strong>{{ $errors->first('cod_barras') }}</strong>
 				</span>
 			@endif			
-		</div>
+		</div> --}}
 
 		<div class="form-group {{ $errors->has('produto') ? ' has-error' : ''}}">
 			<label for="produto" class="col-md-4 control-label">Produto</label>
 
 			<div class="col-md-6">
-				<input type="text" id="produto" class="form-control" name="produto" value="{{ old('produto') }}" required autofocus>
+				<select class="form-control" name="produto" id="produto">
+					<option value="">Selecione</option>
+					@forelse( $produtos as $produto)
+						<option value="{{ $produto->id }}">{{ $produto->produto }}</option>
+					@empty
+						<option value="">Não foi encontrado nenhum produto cadastrado!</option>
+					@endforelse
+				</select>
 
 				@if ( $errors->has('produto') )
 					<span class="help-block">
@@ -70,4 +91,8 @@
             </div>
         </div>
 	</form>
+@endsection
+
+@section('scripts')
+
 @endsection
