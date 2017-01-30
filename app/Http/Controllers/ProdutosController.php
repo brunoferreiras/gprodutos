@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produto;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class ProdutosController extends Controller
 {
     private $produto;
     private $totalPage;
+    private $usuario;
 
-    public function __construct(Produto $produto){
+    public function __construct(Produto $produto, User $user){
         $this->produto = $produto;
         $this->totalPage = 10;
+        $this->usuario = $user;
         $this->middleware('auth');
     }
     /**
@@ -24,6 +27,11 @@ class ProdutosController extends Controller
     public function index()
     {
         $produtos = $this->produto->paginate($this->totalPage);
+
+        foreach ($produtos as $valor) {
+            $valor->users_id = $this->usuario->get_nomeUsuario($valor->users_id);
+        }
+
         $titulo = 'Produtos | Sistema de Gerenciamento de Produtos';
 
         return view('produtos.lista_produtos', compact('produtos', 'titulo'));

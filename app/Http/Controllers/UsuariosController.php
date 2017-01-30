@@ -24,6 +24,12 @@ class UsuariosController extends Controller
     public function index()
     {
         $usuarios =  $this->user->paginate($this->totalPage); // Retorna todos os dados dos usuários
+
+        foreach ($usuarios as $value) {
+            if($value->nivel_acesso == 1) { $value->nivel_acesso = "Usuário"; }
+            if($value->nivel_acesso == 2) { $value->nivel_acesso = "Gestor"; }
+            if($value->nivel_acesso == 3) { $value->nivel_acesso = "Administrador"; }
+        }
         $titulo = 'Usuários | Sistema de Gerenciamento de Produtos';
 
         return view('usuarios.lista_usuarios', compact('usuarios', 'titulo'));

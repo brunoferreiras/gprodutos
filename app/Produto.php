@@ -14,4 +14,14 @@ class Produto extends Model
     protected $fillable = [
         'tag_rfid', 'cod_barras','produto', 'descricao', 'quantidade', 'users_id', 'updated_at', 'created_at',
     ];
+
+    /**
+     * Retorna o nome do produto através do id dele.
+     * @param  [int] $id [Id do produto]
+     * @return [string]     [Nome do produto]
+     */
+    public function get_nomeProduto( $id ){
+
+        return Produto::find($id)->produto;
+    }
 }

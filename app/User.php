@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Retorna o nome do usuário através do id dele.
+     * @param  [int] $id [Id do usuário]
+     * @return [string]     [Nome do usuário]
+     */
+    public function get_nomeUsuario( $id ){
+
+        return User::find($id)->nome;
+    }
 }
