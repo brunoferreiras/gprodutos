@@ -61,7 +61,7 @@ class ProdutosController extends Controller
         $this->validate($request,[
             'tag_rfid' => 'required|unique:produtos',
             'cod_barras' => 'required|unique:produtos',
-            'produto' => 'required',
+            'produto' => 'required|unique:produtos',
             'descricao' => 'required',
             'quantidade' => 'required',
         ]);

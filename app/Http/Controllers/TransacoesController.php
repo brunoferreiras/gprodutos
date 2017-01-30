@@ -34,7 +34,6 @@ class TransacoesController extends Controller
             $valor->produtos_id = $this->produto->get_nomeProduto($valor->produtos_id);
         }
 
-        // $this->usuario->get_nomeUsuario(Auth::id())
         return view('transacoes.registrar_devolucao', compact('titulo', 'registro_saidas'));
     }
 
