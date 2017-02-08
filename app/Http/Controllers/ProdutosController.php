@@ -70,7 +70,7 @@ class ProdutosController extends Controller
             'tag_rfid' => $request->tag_rfid,
             'cod_barras' => $request->cod_barras,
             'produto' => $request->produto,
-            'descricao' => $request->descricao,
+            'descricao' => trim($request->descricao),
             'quantidade' => $request->quantidade,
             'users_id' => Auth::id(),
         ];

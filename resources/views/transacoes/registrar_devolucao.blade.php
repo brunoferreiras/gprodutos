@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="text-center">Relatório de Devoluções</h1>
+    <h1 class="text-center">Registrar Devolução</h1>
     
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <th>Produto</th>
             <th>Quantidade</th>
             <th>Responsável</th>
-            <th>Data da Devolução</th>
-            <th>Hora da Devolução</th>
+            <th>Data de Empréstimo</th>
+            <th>Hora de Empréstimo</th>
             <th>Quantidade para devolver</th>
             <th>Ações</th>            
         </thead>
         <tbody>
             @forelse($registro_saidas as $saida)
                 <tr>
-                    <td>{{ $saida->produtos_id }}</td>
+                    <td>{{ $saida->produto_nome }}</td>
                     <td>{{ $saida->quantidade_saida }}</td>
                     <td>{{ $saida->users_id }}</td>
                     <td>{{ date('d/m/Y', strtotime($saida->horas_saida)) }}</td>

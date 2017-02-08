@@ -31,7 +31,7 @@ class TransacoesController extends Controller
 
         foreach($registro_saidas as $valor){
             $valor->users_id = $this->usuario->get_nomeUsuario($valor->users_id);
-            $valor->produtos_id = $this->produto->get_nomeProduto($valor->produtos_id);
+            $valor->produto_nome = $this->produto->get_nomeProduto($valor->produtos_id);
         }
 
         return view('transacoes.registrar_devolucao', compact('titulo', 'registro_saidas'));
@@ -59,6 +59,8 @@ class TransacoesController extends Controller
             'horas_entrada' => date("Y-m-d H:i:s"),
         ];
 
+        $qtd_produtos = $this->entradaProduto->find($request->produto)->quantidade;;
+
         $criado = $this->entradaProduto->create($dados);
 
         if( $criado ){
@@ -73,7 +75,7 @@ class TransacoesController extends Controller
 
     	$this->validate($request, [
     		'produto' => 'required',
-    		'quantidade' => 'required|numeric'
+    		'quantidade' => 'required|numeric|min:1'
     	]);
 
     	$dados = [
@@ -83,13 +85,26 @@ class TransacoesController extends Controller
     		'horas_saida' => date("Y-m-d H:i:s"),
     	];
 
-    	$criado = $this->saidaProduto->create($dados);
+        // Recebe a quantidade de produtos disponíveis no momento
+        $qtd_produtos = $this->produto->find($request->produto)->quantidade;
 
-    	if( $criado ){
-    		return redirect()->action('TransacoesController@create_saida')->with('success', 'Produto emprestado com sucesso!');
-    	}
-    	else{
-    		return redirect()->action('TransacoesController@create_saida')->with('error', 'Não foi possível registrar o empréstimo! Por favor, tente novamente!');
-    	}
+        // Verifica se tem produtos suficientes para realizar o empréstimo
+        if(($qtd_produtos - $request->quantidade) >= 0){
+
+            $criado = $this->saidaProduto->create($dados);
+            $qtd_atualizada = $qtd_produtos - $request->quantidade;
+            // Atualiza a quantidade disponível do produto no banco
+            $this->produto->find($request->produto)->update(['quantidade' => $qtd_atualizada]);  
+
+            if( $criado ){
+                return redirect()->action('TransacoesController@create_saida')->with('success', 'Produto emprestado com sucesso!');
+            }
+            else{
+                return redirect()->action('TransacoesController@create_saida')->with('error', 'Não foi possível registrar o empréstimo! Por favor, tente novamente!');
+            }
+        }
+        else{
+            return redirect()->action('TransacoesController@create_saida')->with('error', 'Não foi possível registrar o empréstimo! Quantidade de Produtos Insuficientes!');
+        }
     }
 }
