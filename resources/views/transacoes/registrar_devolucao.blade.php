@@ -18,12 +18,13 @@
                 <tr>
                     <td>{{ $saida->produto_nome }}</td>
                     <td>{{ $saida->quantidade_saida }}</td>
-                    <td>{{ $saida->users_id }}</td>
+                    <td>{{ $saida->user_nome }}</td>
                     <td>{{ date('d/m/Y', strtotime($saida->horas_saida)) }}</td>
                     <td>{{ date('H:i:s', strtotime($saida->horas_saida)) }}</td>
                     <td>
                     	<form method="POST" action="{{ url("devolucao") }}">
                     		{{ csrf_field() }}
+                            <input type="hidden" name="user" value="{{ $saida->users_id }}">
 							<input type="hidden" name="produto" value="{{ $saida->produtos_id }}">
                     		<input type="number" name="quantidade_devolucao" class="form-control" min="1" max="{{ $saida->quantidade_saida }}" required>                     		                  		
 					</td>

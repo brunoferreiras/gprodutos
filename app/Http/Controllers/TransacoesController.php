@@ -30,7 +30,7 @@ class TransacoesController extends Controller
         $registro_saidas = $this->saidaProduto->all();
 
         foreach($registro_saidas as $valor){
-            $valor->users_id = $this->usuario->get_nomeUsuario($valor->users_id);
+            $valor->user_nome = $this->usuario->get_nomeUsuario($valor->users_id);
             $valor->produto_nome = $this->produto->get_nomeProduto($valor->produtos_id);
         }
 
@@ -49,7 +49,8 @@ class TransacoesController extends Controller
 
         $this->validate($request, [
             'produto' => 'required',
-            'quantidade_devolucao' => 'required|numeric'
+            'quantidade_devolucao' => 'required|numeric',
+            'user' => 'required'
         ]);
 
         $dados = [
@@ -59,7 +60,9 @@ class TransacoesController extends Controller
             'horas_entrada' => date("Y-m-d H:i:s"),
         ];
 
-        $qtd_produtos = $this->entradaProduto->find($request->produto)->quantidade;;
+        $qtd_produtos = $this->saidaProduto->select("SELECT * FROM `saida_produtos` WHERE `produtos_id` = 4 AND `users_id` = 2 AND `quantidade_saida` <> `quantidade_dev` ");
+
+        dd($qtd_produtos);
 
         $criado = $this->entradaProduto->create($dados);
 
