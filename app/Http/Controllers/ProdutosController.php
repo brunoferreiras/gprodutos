@@ -65,7 +65,7 @@ class ProdutosController extends Controller
             'descricao' => 'required',
             'quantidade' => 'required',
         ]);
-
+        
         $dados = [
             'tag_rfid' => $request->tag_rfid,
             'cod_barras' => $request->cod_barras,
