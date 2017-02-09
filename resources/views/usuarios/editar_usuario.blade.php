@@ -69,9 +69,9 @@
             <div class="col-md-6">
                 <select name="nivel_acesso" id="nivel_acesso" class="form-control" required>
                 	<option value="">Selecione</option>
-                    <option value="1" @if($usuario->nivel_acesso == 1) selected @endif>Usuário</option>
-                    <option value="2" @if($usuario->nivel_acesso == 2) selected @endif>Gestor</option>
-                    <option value="3" @if($usuario->nivel_acesso == 3) selected @endif>Administrador</option>
+                    @foreach($niveis_acesso as $nivel)                                    
+                        <option value="{{ $nivel->id }}">{{ $nivel->nivel_acesso }}</option>
+                    @endforeach
                 </select>
 
                 @if ($errors->has('nivel_acesso'))

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class UsuariosController extends Controller
 {
@@ -24,15 +25,16 @@ class UsuariosController extends Controller
     public function index()
     {
         $usuarios =  $this->user->paginate($this->totalPage); // Retorna todos os dados dos usuários
-
-        foreach ($usuarios as $value) {
-            if($value->nivel_acesso == 1) { $value->nivel_acesso = "Usuário"; }
-            if($value->nivel_acesso == 2) { $value->nivel_acesso = "Gestor"; }
-            if($value->nivel_acesso == 3) { $value->nivel_acesso = "Administrador"; }
-        }
+        $niveis_acesso = DB::select('select * from gp_niveis_acesso');
         $titulo = 'Usuários | Sistema de Gerenciamento de Produtos';
-
-        return view('usuarios.lista_usuarios', compact('usuarios', 'titulo'));
+        // Troca o id do nível de acesso pelo seu respectivo nome de todos os usuários
+        foreach ($usuarios as $value) {
+            foreach($niveis_acesso as $nivel){
+                if($value->niveis_acesso_id == $nivel->id)
+                    $value->niveis_acesso_id = $nivel->nivel_acesso;
+            }
+        }
+        return view('usuarios.lista_usuarios', compact('usuarios', 'titulo', 'niveis_acesso'));
     }
 
     /**
@@ -92,6 +94,12 @@ class UsuariosController extends Controller
     {
         $usuario = $this->user->find($id);
         $titulo = "Usuário: ".$usuario->usuario." | Sistema de Gerenciamento de Produtos";
+        $niveis_acesso = DB::select('select * from gp_niveis_acesso');
+        // Troca o id do nível de acesso pelo seu respectivo nome
+        foreach($niveis_acesso as $nivel){
+            if($usuario->niveis_acesso_id == $nivel->id)
+                $usuario->niveis_acesso_id = $nivel->nivel_acesso;
+        }
 
         return view('usuarios.mostrar_usuario', compact('usuario', 'titulo'));
     }
@@ -107,8 +115,9 @@ class UsuariosController extends Controller
         $usuario = $this->user->find($id);
         $matricula = $usuario->matricula;
         $titulo = "Editar Usuário: ".$usuario->usuario." | Sistema de Gerenciamento de Produtos";
+        $niveis_acesso = DB::select('select * from gp_niveis_acesso');
 
-        return view('usuarios.editar_usuario', compact('usuario', 'title'));
+        return view('usuarios.editar_usuario', compact('usuario', 'title', 'niveis_acesso'));
     }
 
     /**

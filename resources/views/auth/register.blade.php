@@ -66,20 +66,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('nivel_acesso') ? ' has-error' : '' }}">
-                            <label for="nivel_acesso" class="col-md-4 control-label">Nível de Acesso</label>
+                        <div class="form-group{{ $errors->has('niveis_acesso_id') ? ' has-error' : '' }}">
+                            <label for="niveis_acesso_id" class="col-md-4 control-label">Nível de Acesso</label>
 
                             <div class="col-md-6">
-                                <select name="nivel_acesso" id="nivel_acesso" class="form-control" required>
+                                <select name="niveis_acesso_id" id="niveis_acesso_id" class="form-control" required>
                                     <option value="">Selecione</option>
-                                    <option value="1">Usuário</option>
-                                    <option value="2">Gestor</option>
-                                    <option value="3">Administrador</option>
+                                    @foreach($niveis_acesso as $nivel)                                    
+                                        <option value="{{ $nivel->id }}">{{ $nivel->nivel_acesso }}</option>
+                                    @endforeach
                                 </select>
 
-                                @if ($errors->has('nivel_acesso'))
+                                @if ($errors->has('niveis_acesso_id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('nivel_acesso') }}</strong>
+                                        <strong>{{ $errors->first('niveis_acesso_id') }}</strong>
                                     </span>
                                 @endif
                             </div>

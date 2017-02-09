@@ -51,9 +51,9 @@ class RegisterController extends Controller
             'matricula' => 'required|max:255',
             'usuario' => 'required|max:255',
             'nome' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:gp_users',
             'password' => 'required|min:6|confirmed',
-            'nivel_acesso' => 'required',
+            'niveis_acesso_id' => 'required',
         ]);
     }
 
@@ -65,13 +65,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'matricula' => $data['matricula'],
             'usuario' => $data['usuario'],
             'nome' => $data['nome'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'nivel_acesso' => $data['nivel_acesso'],
+            'niveis_acesso_id' => $data['niveis_acesso_id'],
         ]);
     }
 }

@@ -36,13 +36,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Nível de Acesso:</strong>
-                @if( $usuario->nivel_acesso == 1)
-                    Usuário
-                @elseif( $usuario->nivel_acesso == 2)
-                    Gestor
-                @elseif( $usuario->nivel_acesso == 3)
-                    Administrador
-                @endif
+                {{ $usuario->niveis_acesso_id }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

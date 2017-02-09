@@ -72,7 +72,7 @@ return [
 
         'users' => [
             'driver' => 'database',
-            'table' => 'users',
+            'table' => 'gp_users',
         ],
     ],
 
@@ -94,7 +94,7 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
+            'table' => 'gp_password_resets',
             'expire' => 60,
         ],
     ],
