@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-center">Registrar Devolução</h1>
     
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover fixed_headers">
         <thead>
             <th>Produto</th>
             <th>Quantidade</th>

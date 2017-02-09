@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'gp_users'; // Determina o nome da tabela no banco
 
     /**
      * The attributes that are mass assignable.

@@ -13,7 +13,7 @@ class CreateSaidaProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::table('saida_produtos', function (Blueprint $table) {
+        Schema::table('gp_saida_produtos', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ class CreateSaidaProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saida_produtos');
+        Schema::dropIfExists('gp_saida_produtos');
     }
 }

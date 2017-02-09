@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\EntradaProdutos;
 use App\SaidaProdutos;
 use App\Produto;
@@ -59,8 +60,8 @@ class TransacoesController extends Controller
             'quantidade_entrada' => $request->quantidade_devolucao,
             'horas_entrada' => date("Y-m-d H:i:s"),
         ];
-
-        $qtd_produtos = $this->saidaProduto->select("SELECT * FROM `saida_produtos` WHERE `produtos_id` = 4 AND `users_id` = 2 AND `quantidade_saida` <> `quantidade_dev` ");
+        
+        $qtd_produtos = DB::select('select * from saida_produtos where quantidade_saida <> quantidade_dev and users_id = :users_id and produtos_id = :produtos_id', ['users_id' => $request->user, 'produtos_id' => $request->produto]);
 
         dd($qtd_produtos);
 

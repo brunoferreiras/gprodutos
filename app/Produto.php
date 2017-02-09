@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
+    protected $table = 'gp_produtos'; // Determina o nome da tabela no banco
      /**
      * The attributes that are mass assignable.
      *

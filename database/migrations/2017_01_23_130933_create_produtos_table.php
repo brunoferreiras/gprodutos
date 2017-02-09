@@ -13,7 +13,7 @@ class CreateProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::table('produtos', function (Blueprint $table) {
+        Schema::table('gp_produtos', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ class CreateProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('gp_produtos');
     }
 }
